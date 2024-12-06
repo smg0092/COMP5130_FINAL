@@ -97,17 +97,16 @@ class Structure2Vec(nn.Module):
         """
         return self.out_proj(aggr_out)
     
-# Create example graphs
-# graph1 = create_graph_with_components(1,15,20)  # 1 connected component
-# graph2 = create_graph_with_components(2,15,20)  # 2 connected components
-# graph3 = create_graph_with_components(3,15,20)  # 3 connected components
 
-# # Plot the graphs
-# plot_graph(graph1, "Graph with 1 Connected Component")
-# plot_graph(graph2, "Graph with 2 Connected Components")
-# plot_graph(graph3, "Graph with 3 Connected Components")
+def create_example_graphs():
+    graph1 = create_graph_with_components(1,15,20)  # 1 connected component
+    graph2 = create_graph_with_components(2,15,20)  # 2 connected components
+    graph3 = create_graph_with_components(3,15,20)  # 3 connected components
 
-#Graphs with 15-20 nodes
+    # Plot the graphs
+    plot_graph(graph1, "Graph with 1 Connected Component")
+    plot_graph(graph2, "Graph with 2 Connected Components")
+    plot_graph(graph3, "Graph with 3 Connected Components")
 
 def get_graph_data():
     graphs = []
