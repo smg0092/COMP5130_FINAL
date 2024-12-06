@@ -2,6 +2,7 @@ import torch.nn.functional as F
 
 #Struc2vec Imports
 import torch_geometric.nn as pyg_nn
+from torch_geometric.loader import DataLoader
 from torch_geometric.utils import from_networkx
 import torch.nn as nn
 import networkx as nx
@@ -97,72 +98,74 @@ class Structure2Vec(nn.Module):
         return self.out_proj(aggr_out)
     
 # Create example graphs
-graph1 = create_graph_with_components(1,15,20)  # 1 connected component
-graph2 = create_graph_with_components(2,15,20)  # 2 connected components
-graph3 = create_graph_with_components(3,15,20)  # 3 connected components
+# graph1 = create_graph_with_components(1,15,20)  # 1 connected component
+# graph2 = create_graph_with_components(2,15,20)  # 2 connected components
+# graph3 = create_graph_with_components(3,15,20)  # 3 connected components
 
-# Plot the graphs
-plot_graph(graph1, "Graph with 1 Connected Component")
-plot_graph(graph2, "Graph with 2 Connected Components")
-plot_graph(graph3, "Graph with 3 Connected Components")
+# # Plot the graphs
+# plot_graph(graph1, "Graph with 1 Connected Component")
+# plot_graph(graph2, "Graph with 2 Connected Components")
+# plot_graph(graph3, "Graph with 3 Connected Components")
 
 #Graphs with 15-20 nodes
-graphs = []
-for i in range(5000):
-  graphs.append(create_graph_with_components(1,15,20))
-for i in range(5000):
-  graphs.append(create_graph_with_components(2,15,20))
-for i in range(5000):
-  graphs.append(create_graph_with_components(3,15,20))
 
-# Extract adjacency matrix from custom graph object
-adj_matrix = nx.to_numpy_array(graphs[0])  # Returns the adjacency matrix as a NumPy array
-adj_list = adj_matrix_to_list(adj_matrix)
+def get_graph_data():
+    graphs = []
+    for i in range(5000):
+        graphs.append(create_graph_with_components(1,15,20))
+    for i in range(5000):
+        graphs.append(create_graph_with_components(2,15,20))
+    for i in range(5000):
+        graphs.append(create_graph_with_components(3,15,20))
 
-# Use the BFS function to count the number of connected components
-num_components = bfs_count_components(adj_list)
-print(f"Number of connected components: {num_components}")
+    # Extract adjacency matrix from custom graph object
+    adj_matrix = nx.to_numpy_array(graphs[0])  # Returns the adjacency matrix as a NumPy array
+    adj_list = adj_matrix_to_list(adj_matrix)
 
-graph_comp = []
-for i in range(len(graphs)):
-  adj_matrix = nx.to_numpy_array(graphs[i])  # Returns the adjacency matrix as a NumPy array
-  adj_list = adj_matrix_to_list(adj_matrix)
-  num_components = bfs_count_components(adj_list)
-  graph_comp.append(num_components)
+    # Use the BFS function to count the number of connected components
+    num_components = bfs_count_components(adj_list)
+    print(f"Number of connected components: {num_components}")
+
+    graph_comp = []
+    for i in range(len(graphs)):
+        adj_matrix = nx.to_numpy_array(graphs[i])  # Returns the adjacency matrix as a NumPy array
+        adj_list = adj_matrix_to_list(adj_matrix)
+        num_components = bfs_count_components(adj_list)
+        graph_comp.append(num_components)
 
 
-datas = []
-for i in range(len(graphs)):
-  label = graph_comp[i]
-  data = from_networkx(graphs[i])
-  data.x = torch.ones(data.num_nodes, 1)  # Set all node features to 1
-  data.y = torch.tensor([label], dtype=torch.long)
-  datas.append(data)
+    datas = []
+    for i in range(len(graphs)):
+        label = graph_comp[i]
+        data = from_networkx(graphs[i])
+        data.x = torch.ones(data.num_nodes, 1)  # Set all node features to 1
+        data.y = torch.tensor([label], dtype=torch.long)
+        datas.append(data)
 
-app = datas[0]
-print(app.edge_index)
+    return datas
 
-# # Create a DataLoader for batching
-# #random.shuffle(datas)
-# train_loader = DataLoader(datas[:90], batch_size=32, shuffle=True)
-# test_loader = DataLoader(datas[10:], batch_size=32, shuffle=False)
+def run_struct_to_vec(datas):
+    # Create a DataLoader for batching
+    #random.shuffle(datas)
+    train_loader = DataLoader(datas[:90], batch_size=32, shuffle=True)
+    test_loader = DataLoader(datas[10:], batch_size=32, shuffle=False)
 
-# # Initialize the Structure2Vec model
-# model = Structure2Vec(in_channels=datas[0].num_features, hidden_channels=32, num_classes=3)
-# optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-# criterion = nn.CrossEntropyLoss()
+    # Initialize the Structure2Vec model
+    model = Structure2Vec(in_channels=datas[0].num_features, hidden_channels=32, num_classes=3)
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+    criterion = nn.CrossEntropyLoss()
 
-# # Training loop
-# for epoch in range(100):
-#     model.train()
-#     epoch_loss = 0
-#     for batch in train_loader:
-#         optimizer.zero_grad()
-#         embedding = model(batch.x, batch.edge_index, batch.batch)
-#         loss = criterion(embedding, batch.y)  # Batch labels
-#         loss.backward()
-#         optimizer.step()
-#         epoch_loss += loss.item()
-#     print(f"Epoch {epoch + 1}, Loss: {epoch_loss:.4f}")
+    # Training loop
+    for epoch in range(100):
+        model.train()
+        epoch_loss = 0
+        for batch in train_loader:
+            optimizer.zero_grad()
+            embedding = model(batch.x, batch.edge_index, batch.batch)
+            loss = criterion(embedding, batch.y)  # Batch labels
+            loss.backward()
+            optimizer.step()
+            epoch_loss += loss.item()
+        print(f"Epoch {epoch + 1}, Loss: {epoch_loss:.4f}")
 
 
