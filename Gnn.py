@@ -1,18 +1,4 @@
-# !pip install -q torch-geometric
-import torch
-import math
-import random
-from torch.utils.data import Dataset
-from torchvision import datasets
-from torchvision.transforms import ToTensor
-import matplotlib.pyplot as plt
-import torch_geometric.transforms as T
-from torch_geometric.nn import GCNConv
-from torch_geometric.data import Data
-import torch.nn.functional as F
-from torch_geometric.datasets import Planetoid
-from torch_geometric.transforms import NormalizeFeatures
-from torch_geometric.nn import GATConv
+from pyimports import *
 
 dataset = Planetoid(root='data/Planetoid', name='Citeseer', transform=NormalizeFeatures())
 #dataset = Planetoid(root='data/Planetoid', name='Cora', transform=NormalizeFeatures())

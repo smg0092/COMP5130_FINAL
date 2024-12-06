@@ -1,6 +1,4 @@
-#population = [memeber, member, member]
-import torch
-import random as rd 
+from pyimports import *
 
 class Member:
     def __init__(self, data):
