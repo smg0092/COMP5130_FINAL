@@ -1,0 +1,18 @@
+30 Runs for Citseer Dataset:
+    Citseer average accuracy score: 0.7009
+    Citseer average precision score: 0.7143966207071267
+    Citseer average recall score: 0.7009
+    Citseer average f1-score: 0.7049932698926781
+
+30 Runs for Cora Dataset:
+    Cora average accuracy score: 0.75325
+    Cora average precision score: 0.7668987869771401
+    Cora average recall score: 0.7532499999999998
+    Cora average f1-score: 0.7565619007251413
+
+30 Runs for PubMed Dataset:
+    PubMed average accuracy score: 0.7642333333333334
+    PubMed average precision score: 0.7740972693748671
+    PubMed average recall score: 0.7642333333333332
+    PubMed average f1-score: 0.7662862540858603
+ 
