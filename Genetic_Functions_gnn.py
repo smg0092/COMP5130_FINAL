@@ -1,6 +1,21 @@
-from pyimports import *
+import torch.nn.functional as F
+from torch_geometric.nn import GCNConv
+from torch_geometric.datasets import Planetoid
+from torch_geometric.transforms import NormalizeFeatures
 
-def evaluate_member_fitness(member: Member, dataset, num_epochs):
+from Memeber_gnn import Member
+
+#Basic imports
+import random as rd
+import numpy as np
+import torch
+
+
+Citseer = Planetoid(root='data/Planetoid', name='Citeseer', transform=NormalizeFeatures())
+Cora = Planetoid(root='data/Planetoid', name='Cora', transform=NormalizeFeatures())
+PubMed = Planetoid(root='data/Planetoid', name='PubMed', transform=NormalizeFeatures())
+
+def evaluate_member_fitness(member, dataset, num_epochs):
     """
     Evaluate the accuracy of the graph represented by the given Member object.
     :param member: A Member object representing a graph with a chromosome.
@@ -120,7 +135,7 @@ def create_offspring(population: list, data):
 
     return offspring
 
-def evaluate_offspring_basic(offspring: Member):
+def evaluate_offspring_basic(offspring):
     """
     - Gets the fitness of the new offspring
     """
@@ -177,24 +192,24 @@ def Genetic_Algo(n_population: int, graph, iterations: int):
 
 dataset = Citseer
 
-print('======================')
-print(f'Dataset: {dataset}')
-print(f'Data type:')
-print(f'Number of graphs: {len(dataset)}')
-print(f'Number of features: {dataset.num_features}')
-print(f'Number of classes: {dataset.num_classes}')
-print('======================')
+# print('======================')
+# print(f'Dataset: {dataset}')
+# print(f'Data type:')
+# print(f'Number of graphs: {len(dataset)}')
+# print(f'Number of features: {dataset.num_features}')
+# print(f'Number of classes: {dataset.num_classes}')
+# print('======================')
 
-data = dataset[0]  # Get the first graph object.
-print(len(data))
-print("Data type of data graph object: ")
-print(type(data))
+# data = dataset[0]  # Get the first graph object.
+# print(len(data))
+# print("Data type of data graph object: ")
+# print(type(data))
 
-# member = Member(data)
-# Evaluate_gnn.evaluate_member_fitness(member, member.data,101)
-start = time.time()
-Genetic_Algo(graph=data, dataset= dataset, n_population=100, iterations=10)
-end = time.time()
+# # member = Member(data)
+# # Evaluate_gnn.evaluate_member_fitness(member, member.data,101)
+# start = time.time()
+# Genetic_Algo(graph=data, dataset= dataset, n_population=100, iterations=10)
+# end = time.time()
 
-elapsed_time = (end - start) / 60
-print(f"This took {elapsed_time:.2f} minutes")
+# elapsed_time = (end - start) / 60
+# print(f"This took {elapsed_time:.2f} minutes")
