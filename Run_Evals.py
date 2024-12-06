@@ -130,8 +130,8 @@ def run_plots(dataset):
 
     # Add title and labels
     plt.title("Line Graph")
-    plt.xlabel("accuracies")
-    plt.ylabel("number_of_edges_removed")
+    plt.xlabel("number of edges removed")
+    plt.ylabel("accuracies")
 
     # Add legend
     plt.legend()
@@ -209,4 +209,4 @@ def avg_run_test():
             file.write(f"{dataset_names[i]} average f1-score: {dat_f1}\n ")
             file.flush()
 
-    
+run_plots(Citseer)
