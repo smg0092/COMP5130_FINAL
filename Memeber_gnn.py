@@ -1,4 +1,11 @@
-from pyimports import *
+#GNN Imports
+from torch_geometric.data import Data
+
+
+#Basic imports
+import random as rd
+import torch
+
 
 class Member:
     def __init__(self, data):

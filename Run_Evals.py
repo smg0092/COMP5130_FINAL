@@ -1,4 +1,21 @@
-from pyimports import *
+#GNN Imports
+from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
+import torch.nn.functional as F
+from torch_geometric.nn import GCNConv
+from torch_geometric.datasets import Planetoid
+from torch_geometric.transforms import NormalizeFeatures
+
+#Custom Imports
+from Genetic_Functions_gnn import evaluate_member_fitness
+from Memeber_gnn import Member
+
+#Basic imports
+import torch
+
+
+Citseer = Planetoid(root='data/Planetoid', name='Citeseer', transform=NormalizeFeatures())
+Cora = Planetoid(root='data/Planetoid', name='Cora', transform=NormalizeFeatures())
+PubMed = Planetoid(root='data/Planetoid', name='PubMed', transform=NormalizeFeatures())
 
 def run_model(data, dataset, epochs):
 

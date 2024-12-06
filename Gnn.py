@@ -1,4 +1,12 @@
-from pyimports import *
+#GNN Imports
+import torch.nn.functional as F
+from torch_geometric.nn import GCNConv
+from torch_geometric.datasets import Planetoid
+from torch_geometric.transforms import NormalizeFeatures
+
+#Basic imports
+import random
+import torch
 
 dataset = Planetoid(root='data/Planetoid', name='Citeseer', transform=NormalizeFeatures())
 #dataset = Planetoid(root='data/Planetoid', name='Cora', transform=NormalizeFeatures())
