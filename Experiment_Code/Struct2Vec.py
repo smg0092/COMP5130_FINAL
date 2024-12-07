@@ -167,4 +167,24 @@ def run_struct_to_vec(datas):
             epoch_loss += loss.item()
         print(f"Epoch {epoch + 1}, Loss: {epoch_loss:.4f}")
 
+def evaluate_accuracy(loader, model):
+    model.eval()
+    correct = 0
+    total = 0
+    with torch.no_grad():
+        for batch in loader:
+            output = model(batch.x, batch.edge_index, batch.batch)
+            predictions = output.argmax(dim=1)
+            correct += (predictions == batch.y).sum().item()
+            total += batch.y.size(0)
+    return correct / total
 
+def run_struct(hidden_channels, learning_rate):
+    datas = get_graph_data()
+    model = Structure2Vec(in_channels=datas[0].num_features, hidden_channels= hidden_channels, num_classes=3)
+    optimizer = torch.optim.Adam(model.parameters(), lr= learning_rate)
+    criterion = nn.CrossEntropyLoss()
+    train_loader = DataLoader(datas[:90], batch_size=32, shuffle=True)
+    test_loader = DataLoader(datas[10:], batch_size=32, shuffle=False)
+    original_accuracy = evaluate_accuracy(test_loader, model)
+    print(f"Original Accuracy: {original_accuracy:.2f}")

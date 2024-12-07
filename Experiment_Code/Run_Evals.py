@@ -159,10 +159,10 @@ def evaluate_model(model, data):
     # Print results
     return accuracy, precision, recall, f1
 
-def basic_run(dataset):
+def basic_run(dataset, epochs):
     data = dataset[0]  # Get the first graph object.
-    acc = run_model(data, dataset, 101)
-
+    acc = run_model(data, dataset, epochs)
+    
     return acc
 
 def evaluation_run(dataset):
@@ -208,5 +208,3 @@ def avg_run_test():
             file.write(f"{dataset_names[i]} average recall score: {dat_recall}\n ")
             file.write(f"{dataset_names[i]} average f1-score: {dat_f1}\n ")
             file.flush()
-
-run_plots(Citseer)
