@@ -86,7 +86,7 @@ elif userIn == 2:
         except ValueError:
             print("Invalid input")
 
-    Genetic_Algo(graph=data, n_population=userIn, iterations=userIn2)
+    Genetic_Algo(graph=data, dataset= dataset, n_population=userIn, iterations=userIn2)
 
 elif userIn == 3:
   dataset = Citseer
@@ -103,7 +103,7 @@ elif userIn == 3:
           print("Invalid input")  
 
   acc = basic_run(dataset,userIn)
-  print(acc)
+  print(acc[0])
   
 elif userIn == 4:
   dataset = Citseer
