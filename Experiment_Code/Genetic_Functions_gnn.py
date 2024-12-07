@@ -190,7 +190,7 @@ def Genetic_Algo(n_population: int, graph, iterations: int):
     np.save(arr=chromosome_list, file="chromosome_list")
 
 
-dataset = Citseer
+# dataset = Citseer
 
 # print('======================')
 # print(f'Dataset: {dataset}')
@@ -205,10 +205,10 @@ dataset = Citseer
 # print("Data type of data graph object: ")
 # print(type(data))
 
-# # member = Member(data)
-# # Evaluate_gnn.evaluate_member_fitness(member, member.data,101)
+# member = Member(data)
+# Evaluate_gnn.evaluate_member_fitness(member, member.data,101)
 # start = time.time()
-# Genetic_Algo(graph=data, dataset= dataset, n_population=100, iterations=10)
+# Genetic_Algo(graph=data, n_population=1, iterations=1)
 # end = time.time()
 
 # elapsed_time = (end - start) / 60

@@ -174,10 +174,14 @@ def targetDown(ogPredictions, newPredictions, hitlist):
 def hamming_distance(pred1, pred2):
     return (pred1 != pred2).sum().item()
 
-def runRandSamp(numNodes):
-    dataset = Planetoid(root='data/Planetoid', name='Citeseer', transform=NormalizeFeatures())
-    #dataset = Planetoid(root='data/Planetoid', name='Cora', transform=NormalizeFeatures())
-    #dataset = Planetoid(root='data/Planetoid', name='PubMed', transform=NormalizeFeatures())
+def runRandSamp(numNodes, datasetNum):
+    match datasetNum:
+        case 1:
+            dataset = Planetoid(root='data/Planetoid', name='Citeseer', transform=NormalizeFeatures())
+        case 2:
+            dataset = Planetoid(root='data/Planetoid', name='Cora', transform=NormalizeFeatures())
+        case 3:
+            dataset = Planetoid(root='data/Planetoid', name='PubMed', transform=NormalizeFeatures())
 
     print('======================')
     print(f'Dataset: {dataset}')
