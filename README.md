@@ -28,6 +28,6 @@
 * Functionality explained
   This program has the ability to run 4 different programs depending on a user inputting 1, 2, 3, or 4.
   * (1) Will allow the user to input an integer greater than 0 and then the program will run the random sampling attack on the citeseer database and attack that many nodes.
-  * (2) Allows the user to play sudoku with a board that comes with
-  * (3) Will run a test evaluating runtime on 49151 boards using arc consistency and forward checking with corresponding histograms.
-  * (4) Runs the MCV test suite and displays resulting graphs
+  * (2) Run the Genetic Algorithm, will ask for how many members in your population and number of iterations.
+  * (3) Run the GCN, will ask for how many epochs
+  * (4) Run Struct2Vec, will ask for learning rate and hidden channels
