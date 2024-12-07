@@ -1,6 +1,5 @@
 #GNN Imports
 from torch_geometric.data import Data
-import randSamp_methods as rdm
 #Basic imports
 import random as rd
 import torch
@@ -82,36 +81,6 @@ class Member:
         for i in range(len(self.chromosome)):
             if rd.random() < mutation_rate:
                 self.chromosome[i] = 1 - self.chromosome[i]  # Flip bit
-
-    def random_mutation(graph_data, mutation_type="add", hitlist=None):
-        """
-        Modify the graph using random sampling logic.
-        :param graph_data: The PyTorch Geometric Data object to modify.
-        :param mutation_type: Either "add" or "remove".
-        :param hitlist: Nodes to target for modification (optional).
-        :return: Modified graph_data.
-        """
-        if mutation_type == "add":
-            return add_random_edge(graph_data, hitlist)
-        elif mutation_type == "remove":
-            return remove_random_edge(graph_data, hitlist)
-        return graph_data
-
-    def mutate_with_random_sampling(member, mutation_rate=0.1):
-        """
-        Mutate a graph's chromosome using random sampling.
-        :param member: Member object with a graph and chromosome.
-        :param mutation_rate: Probability of mutation per edge.
-        """
-        for i in range(len(member.chromosome)):
-            if rd.random() < mutation_rate:
-                if member.chromosome[i] == 1:
-                    member.chromosome[i] = 0  # Remove edge
-                    member.data = random_mutation(member.data, mutation_type="remove")
-                else:
-                    member.chromosome[i] = 1  # Add edge
-                    member.data = random_mutation(member.data, mutation_type="add")
-
 
     def get_wght(self, chromosome) -> int:
         weight = 0
