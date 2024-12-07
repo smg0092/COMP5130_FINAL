@@ -73,8 +73,9 @@ elif userIn == 3:
       except ValueError:
           print("Invalid input")  
 
-  basic_run(dataset,userIn)
-
+  acc = basic_run(dataset,userIn)
+  print(acc)
+  
 elif userIn == 4:
   dataset = Citseer
   data = dataset[0]

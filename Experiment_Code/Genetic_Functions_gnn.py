@@ -87,13 +87,13 @@ def generate_population(n_population: int, graph):
 
     return population
 
-def evaluate_population_gnn(population: list):
+def evaluate_population_gnn(population: list, dataset):
     """
     - The current evaluation function for GEFES. It uses a perceptron and evaluates each memeber of the population with a corresponding fitness
     """
 
     for i in range(len(population)):
-        fitness, accuracy = evaluate_member_fitness(population[i], population[i].data, 101)
+        fitness, accuracy = evaluate_member_fitness(population[i], dataset, 101)
         population[i].add_fitness(fitness)
         population[i].add_accuracy(accuracy)
 
@@ -135,11 +135,11 @@ def create_offspring(population: list, data):
 
     return offspring
 
-def evaluate_offspring_basic(offspring):
+def evaluate_offspring_basic(offspring, dataset):
     """
     - Gets the fitness of the new offspring
     """
-    fitness, accuracy = evaluate_member_fitness(offspring, offspring.data, 101)
+    fitness, accuracy = evaluate_member_fitness(offspring, dataset, 101)
     offspring.add_fitness(fitness)
     offspring.add_accuracy(accuracy)
 
@@ -157,7 +157,7 @@ def replace_worstFit(population: list, offspring: object):
 
     population[worst_member_index] = offspring        
 
-def Genetic_Algo(n_population: int, graph, iterations: int):
+def Genetic_Algo(n_population: int, graph, dataset, iterations: int):
     chromosome_list = []
 
     """
@@ -166,7 +166,7 @@ def Genetic_Algo(n_population: int, graph, iterations: int):
     -----------------------------------------
     """
     population = generate_population(n_population, graph)
-    evaluate_population_gnn(population)
+    evaluate_population_gnn(population, dataset= dataset)
 
     with open(f"Gene_Algo_GNN.txt", "w") as file:
 
@@ -182,7 +182,7 @@ def Genetic_Algo(n_population: int, graph, iterations: int):
 
             offspring = create_offspring(population, graph)
 
-            evaluate_offspring_basic(offspring) 
+            evaluate_offspring_basic(offspring, dataset) 
             replace_worstFit(population, offspring) 
 
     chromosome_list = np.array(chromosome_list)
@@ -190,7 +190,7 @@ def Genetic_Algo(n_population: int, graph, iterations: int):
     np.save(arr=chromosome_list, file="chromosome_list")
 
 
-dataset = Citseer
+# dataset = Citseer
 
 # print('======================')
 # print(f'Dataset: {dataset}')
@@ -205,10 +205,10 @@ dataset = Citseer
 # print("Data type of data graph object: ")
 # print(type(data))
 
-# # member = Member(data)
-# # Evaluate_gnn.evaluate_member_fitness(member, member.data,101)
+# member = Member(data)
+# Evaluate_gnn.evaluate_member_fitness(member, member.data,101)
 # start = time.time()
-# Genetic_Algo(graph=data, dataset= dataset, n_population=100, iterations=10)
+# Genetic_Algo(graph=data, dataset = dataset, n_population=1, iterations=1)
 # end = time.time()
 
 # elapsed_time = (end - start) / 60
