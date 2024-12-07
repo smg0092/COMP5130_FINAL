@@ -20,7 +20,7 @@
   pip install -r requirements.txt
   ```
 
-  Then, to run the program, run:
+  Then go to the Experiment_Code directory to run the program, run:
   ```sh
   python3 main.py
   ```
@@ -31,4 +31,3 @@
   * (2) Allows the user to play sudoku with a board that comes with
   * (3) Will run a test evaluating runtime on 49151 boards using arc consistency and forward checking with corresponding histograms.
   * (4) Runs the MCV test suite and displays resulting graphs
-  

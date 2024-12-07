@@ -20,6 +20,17 @@ while True:
     print("Invalid input")
 
 if userIn == 1:
+    print("1. Citeseer\n2. Cora\n3. PubMed")
+    while True:
+        try:
+            datasetNum = int(input("Enter which dataset you want to use: "))
+            if datasetNum in range(1,4):
+                break
+            else:
+             print("Invalid input")
+        except ValueError:
+            print("Invalid input")
+
     print("Enter how many nodes you want to attack.")
     while True:
         try:
@@ -30,34 +41,52 @@ if userIn == 1:
              print("Invalid input")
         except ValueError:
             print("Invalid input")
-    runRandSamp(userIn)
+    runRandSamp(userIn, datasetNum)
 
 elif userIn == 2:
-  dataset = Citseer
-  data = dataset[0]
-  print("How many members in a population?: ")
-  while True:
-      try:
-          userIn = int(input("Enter a number greater than 0: "))
-          if userIn > 0:
-              break
-          else:
+    print("1. Citeseer\n2. Cora\n3. PubMed")
+    while True:
+        try:
+            datasetNum = int(input("Enter which dataset you want to use: "))
+            if datasetNum in range(1,4):
+                break
+            else:
+                print("Invalid input")
+        except ValueError:
             print("Invalid input")
-      except ValueError:
-          print("Invalid input")  
 
-  print("How many iterations should the GA run?: ")
-  while True:
-      try:
-          userIn2 = int(input("Enter a number greater than 0: "))
-          if userIn2 > 0:
-              break
-          else:
+    match datasetNum:
+        case 1:
+            dataset = Citseer
+        case 2:
+            dataset = Cora
+        case 3:
+            dataset = PubMed
+
+    data = dataset[0]
+    print("How many members in a population?: ")
+    while True:
+        try:
+            userIn = int(input("Enter a number greater than 0: "))
+            if userIn > 0:
+                break
+            else:
+                print("Invalid input")
+        except ValueError:
+            print("Invalid input")  
+
+    print("How many iterations should the GA run?: ")
+    while True:
+        try:
+            userIn2 = int(input("Enter a number greater than 0: "))
+            if userIn2 > 0:
+                break
+            else:
+                print("Invalid input")
+        except ValueError:
             print("Invalid input")
-      except ValueError:
-          print("Invalid input")
 
-  Genetic_Algo(graph=data, dataset= dataset, n_population=userIn, iterations=userIn2)
+    Genetic_Algo(graph=data, n_population=userIn, iterations=userIn2)
 
 elif userIn == 3:
   dataset = Citseer
@@ -94,7 +123,7 @@ elif userIn == 4:
   while True:
       try:
           userIn2 = int(input("Enter 16, 32, 64, or 128:"))
-          if userIn2 not in (16, 32, 64, 128):
+          if userIn2 in (16, 32, 64, 128):
               break
           else:
             print("Invalid input")
