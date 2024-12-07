@@ -26,3 +26,9 @@ if userIn == 1:
 
 elif userIn == 2:
    print("Please put your gen algo here")
+
+elif userIn == 3:
+   print("Please put your reinforcement learning algo here")
+
+elif userIn == 4:
+   print("Please put your struct2vec algo here")
